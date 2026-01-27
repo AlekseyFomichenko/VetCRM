@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="VetCRM.Api/VetCRM.Api.csproj" />
+  <Project Path="VetCRM.Infrastructure/VetCRM.Infrastructure.csproj" />
+  <Project Path="VetCRM.Modules.Appointments/VetCRM.Modules.Appointments.csproj" />
+  <Project Path="VetCRM.Modules.Clients/VetCRM.Modules.Clients.csproj" />
+  <Project Path="VetCRM.Modules.Identity/VetCRM.Modules.Identity.csproj" />
+  <Project Path="VetCRM.Modules.MedicalRecords/VetCRM.Modules.MedicalRecords.csproj" />
+  <Project Path="VetCRM.Modules.Notifications/VetCRM.Modules.Notifications.csproj" />
+  <Project Path="VetCRM.Modules.Pets/VetCRM.Modules.Pets.csproj" />
+  <Project Path="VetCRM.SharedKernel/VetCRM.SharedKernel.csproj" />
+</Solution>

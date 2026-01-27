@@ -1,0 +1,6 @@
+@VetCRM.Api_HostAddress = http://localhost:5187
+
+GET {{VetCRM.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
