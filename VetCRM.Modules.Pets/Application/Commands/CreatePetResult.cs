@@ -6,9 +6,5 @@ using System.Threading.Tasks;
 
 namespace VetCRM.Modules.Pets.Application.Commands
 {
-    public sealed record CreatePetCommand(
-        Guid? ClientId,
-        string Name,
-        string Species,
-        DateOnly BirthDate);
+    public sealed record CreatePetResult(Guid PetId);
 }
