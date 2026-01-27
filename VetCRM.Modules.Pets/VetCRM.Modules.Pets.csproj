@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Queries\" />
+    <Folder Include="Domain\Events\" />
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
 </Project>
