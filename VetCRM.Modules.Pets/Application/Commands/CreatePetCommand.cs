@@ -10,5 +10,5 @@ namespace VetCRM.Modules.Pets.Application.Commands
         Guid? ClientId,
         string Name,
         string Species,
-        DateOnly BirthDate);
+        DateTime? BirthDate);
 }

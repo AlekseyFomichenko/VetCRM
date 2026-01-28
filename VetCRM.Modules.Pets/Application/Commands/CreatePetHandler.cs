@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VetCRM.Modules.Clients.Application.Contracts;
 using VetCRM.Modules.Pets.Application.Contracts;
 using VetCRM.Modules.Pets.Domain;
+using VetCRM.SharedKernel;
 
 namespace VetCRM.Modules.Pets.Application.Commands
 {
-    public sealed class CreatePetCommandHandler(IPetRepository pets, IClientReadService clients)
+    public sealed class CreatePetHandler(IPetRepository pets, IClientReadService clients)
     {
         private readonly IPetRepository _pets = pets;
         private readonly IClientReadService _clients = clients;
@@ -18,10 +20,10 @@ namespace VetCRM.Modules.Pets.Application.Commands
             if (command.ClientId.HasValue)
             {
                 bool exist = await _clients.ExistsAsync(command.ClientId.Value, ct);
-                if (!exist) throw new InvalidOperationException("Client does not exist");
+                if (!exist) throw new ClientNotFoundException(command.ClientId.Value);
             }
             Pet pet = Pet.Create(
-                command.ClientId.Value,
+                command.ClientId,
                 command.Name,
                 command.Species,
                 command.BirthDate);

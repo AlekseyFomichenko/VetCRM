@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VetCRM.Modules.Pets.Application.Contracts
+namespace VetCRM.Modules.Clients.Application.Contracts
 {
     public interface IClientReadService
     {
-        Task<bool> ExistsAsync(Guid clientId, CancellationToken cancellationToken);
+        Task<bool> ExistsAsync(Guid clientId, CancellationToken ct);
     }
 }

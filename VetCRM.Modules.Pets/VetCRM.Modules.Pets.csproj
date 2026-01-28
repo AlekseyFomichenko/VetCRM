@@ -19,4 +19,9 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VetCRM.Modules.Clients\VetCRM.Modules.Clients.csproj" />
+    <ProjectReference Include="..\VetCRM.SharedKernel\VetCRM.SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -16,16 +16,15 @@ namespace VetCRM.Modules.Pets
     public static class Module
     {
         public static IServiceCollection AddPetsModule(this IServiceCollection services,
-                                                       IConfiguration configuration)
+                                                       string connectionString)
         {
             services.AddDbContext<PetsDbContext>(options =>
             {
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(connectionString);
             });
 
             services.AddScoped<IPetRepository, PetRepository>();
-
-            services.AddScoped<CreatePetCommandHandler>();
+            services.AddScoped<CreatePetHandler>();
 
             return services;
         }
