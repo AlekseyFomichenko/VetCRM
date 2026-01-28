@@ -9,7 +9,11 @@
   <ItemGroup>
     <Folder Include="Application\Queries\" />
     <Folder Include="Domain\Events\" />
-    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
