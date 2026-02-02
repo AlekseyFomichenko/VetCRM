@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +10,7 @@ using VetCRM.Modules.Pets.Application.Commands;
 using VetCRM.Modules.Pets.Application.Contracts;
 using VetCRM.Modules.Pets.Infrastructure;
 using VetCRM.Modules.Pets.Infrastructure.Repositories;
+using VetCRM.Modules.Pets.Infrastructure.Services;
 
 namespace VetCRM.Modules.Pets
 {
@@ -24,6 +25,7 @@ namespace VetCRM.Modules.Pets
             });
 
             services.AddScoped<IPetRepository, PetRepository>();
+            services.AddScoped<IPetReadService, PetReadService>();
             services.AddScoped<CreatePetHandler>();
 
             return services;

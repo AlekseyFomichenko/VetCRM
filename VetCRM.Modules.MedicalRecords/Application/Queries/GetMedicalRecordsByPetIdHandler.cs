@@ -1,0 +1,31 @@
+using VetCRM.Modules.MedicalRecords.Application.Contracts;
+
+namespace VetCRM.Modules.MedicalRecords.Application.Queries
+{
+    public sealed class GetMedicalRecordsByPetIdHandler(IMedicalRecordRepository repository)
+    {
+        private readonly IMedicalRecordRepository _repository = repository;
+
+        public async Task<IReadOnlyList<GetMedicalRecordByIdResult>> Handle(GetMedicalRecordsByPetIdQuery query, CancellationToken ct)
+        {
+            var records = await _repository.GetByPetIdAsync(query.PetId, ct);
+            var result = new List<GetMedicalRecordByIdResult>();
+            foreach (var record in records)
+            {
+                result.Add(new GetMedicalRecordByIdResult(
+                    record.Id,
+                    record.AppointmentId,
+                    record.PetId,
+                    record.VeterinarianUserId,
+                    record.Complaint,
+                    record.Diagnosis,
+                    record.TreatmentPlan,
+                    record.Prescription,
+                    record.Attachments,
+                    record.CreatedAt,
+                    Array.Empty<VaccinationDto>()));
+            }
+            return result;
+        }
+    }
+}

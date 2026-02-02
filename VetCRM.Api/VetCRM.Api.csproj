@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -20,8 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VetCRM.Modules.Appointments\VetCRM.Modules.Appointments.csproj" />
     <ProjectReference Include="..\VetCRM.Modules.Clients\VetCRM.Modules.Clients.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Identity\VetCRM.Modules.Identity.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Notifications\VetCRM.Modules.Notifications.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.MedicalRecords\VetCRM.Modules.MedicalRecords.csproj" />
     <ProjectReference Include="..\VetCRM.Modules.Pets\VetCRM.Modules.Pets.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Reports\VetCRM.Modules.Reports.csproj" />
     <ProjectReference Include="..\VetCRM.SharedKernel\VetCRM.SharedKernel.csproj" />
   </ItemGroup>
 

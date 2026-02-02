@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VetCRM.Modules.Appointments\VetCRM.Modules.Appointments.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Clients\VetCRM.Modules.Clients.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.MedicalRecords\VetCRM.Modules.MedicalRecords.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Pets\VetCRM.Modules.Pets.csproj" />
+    <ProjectReference Include="..\VetCRM.SharedKernel\VetCRM.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

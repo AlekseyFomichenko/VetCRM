@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Identity.Client;
+using VetCRM.Modules.Clients.Application.Commands;
 using VetCRM.Modules.Clients.Application.Contracts;
+using VetCRM.Modules.Clients.Application.Queries;
 using VetCRM.Modules.Clients.Infrastructure;
+using VetCRM.Modules.Clients.Infrastructure.Repositories;
 using VetCRM.Modules.Clients.Infrastructure.Services;
 
 namespace VetCRM.Modules.Clients
@@ -24,6 +20,12 @@ namespace VetCRM.Modules.Clients
             });
 
             services.AddScoped<IClientReadService, ClientReadService>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<CreateClientHandler>();
+            services.AddScoped<UpdateClientHandler>();
+            services.AddScoped<ArchiveClientHandler>();
+            services.AddScoped<GetClientByIdHandler>();
+            services.AddScoped<GetClientsHandler>();
 
             return services;
         }

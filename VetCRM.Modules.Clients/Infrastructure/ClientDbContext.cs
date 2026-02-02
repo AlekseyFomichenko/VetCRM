@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using VetCRM.Modules.Clients.Infrastructure.Persistence;
+using VetCRM.Modules.Clients.Domain;
 
 namespace VetCRM.Modules.Clients.Infrastructure
 {
@@ -18,6 +13,11 @@ namespace VetCRM.Modules.Clients.Infrastructure
         {
         }
 
-        public DbSet<ClientReadModel> Clients => Set<ClientReadModel>();
+        public DbSet<Client> Clients => Set<Client>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClientDbContext).Assembly);
+        }
     }
 }
