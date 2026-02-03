@@ -38,9 +38,10 @@ public sealed class DevSeedService(
         Guid client1Id = await EnsureClientAsync("Иван Петров", "+79001110101", "ivan@example.com", ct);
         Guid client2Id = await EnsureClientAsync("Мария Сидорова", "+79001110202", null, ct);
         Guid client3Id = await EnsureClientAsync("Алексей Козлов", "+79001110303", "alex@example.com", ct);
-        Guid pet1Id = await EnsurePetAsync("Барсик", "Кот", client1Id, DateTime.UtcNow.AddYears(-3), ct);
-        Guid pet2Id = await EnsurePetAsync("Шарик", "Собака", client2Id, DateTime.UtcNow.AddYears(-2), ct);
-        Guid pet3Id = await EnsurePetAsync("Мурка", "Кот", client1Id, DateTime.UtcNow.AddYears(-1), ct);
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+        Guid pet1Id = await EnsurePetAsync("Барсик", "Кот", client1Id, today.AddYears(-3), ct);
+        Guid pet2Id = await EnsurePetAsync("Шарик", "Собака", client2Id, today.AddYears(-2), ct);
+        Guid pet3Id = await EnsurePetAsync("Мурка", "Кот", client1Id, today.AddYears(-1), ct);
 
         DateTime yesterday = DateTime.UtcNow.Date.AddDays(-1).AddHours(10);
         DateTime tomorrow = DateTime.UtcNow.Date.AddDays(1).AddHours(10);
@@ -88,7 +89,7 @@ public sealed class DevSeedService(
         return result.ClientId;
     }
 
-    private async Task<Guid> EnsurePetAsync(string name, string species, Guid clientId, DateTime? birthDate, CancellationToken ct)
+    private async Task<Guid> EnsurePetAsync(string name, string species, Guid clientId, DateOnly? birthDate, CancellationToken ct)
     {
         var result = await _createPetHandler.Handle(
             new CreatePetCommand(clientId, name, species, birthDate), ct);

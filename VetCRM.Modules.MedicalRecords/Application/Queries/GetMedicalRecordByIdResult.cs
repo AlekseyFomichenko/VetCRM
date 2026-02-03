@@ -10,6 +10,6 @@ namespace VetCRM.Modules.MedicalRecords.Application.Queries
         string TreatmentPlan,
         string Prescription,
         string? Attachments,
-        DateTime CreatedAt,
+        DateOnly CreatedAt,
         IReadOnlyList<VaccinationDto> Vaccinations);
 }

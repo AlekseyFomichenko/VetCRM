@@ -31,7 +31,7 @@ public sealed class AppointmentCompleteFlowTests : IClassFixture<VetCRMWebApplic
         Assert.NotNull(clientBody);
         Guid clientId = clientBody.ClientId;
 
-        var createPetRequest = new CreatePetRequest("Питомец Приёма", "Собака", DateTime.UtcNow.AddYears(-1), clientId);
+        var createPetRequest = new CreatePetRequest("Питомец Приёма", "Собака", DateOnly.FromDateTime(DateTime.UtcNow).AddYears(-1), clientId);
         using var pr = await _client.PostAsJsonAsync("/api/pets", createPetRequest);
         pr.EnsureSuccessStatusCode();
         var petBody = await pr.Content.ReadFromJsonAsync<CreatePetResponse>(JsonOptions);

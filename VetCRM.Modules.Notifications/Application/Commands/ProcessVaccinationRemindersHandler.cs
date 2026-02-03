@@ -26,7 +26,7 @@ namespace VetCRM.Modules.Notifications.Application.Commands
             ProcessVaccinationRemindersCommand command,
             CancellationToken ct)
         {
-            var today = DateTime.UtcNow.Date;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
             var upToDateExclusive = today.AddDays(ReminderDays + 1);
 
             var upcoming = await _upcomingVaccinationsQuery.GetUpcomingAsync(today, upToDateExclusive, ct);

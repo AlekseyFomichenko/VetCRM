@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,12 +12,12 @@ namespace VetCRM.Modules.Pets.Domain
         public Guid? ClientId { get; private set; }
         public string Name { get; private set; } = string.Empty;
         public string Species { get; private set; } = string.Empty;
-        public DateTime? BirthDate { get; private set; }
+        public DateOnly? BirthDate { get; private set; }
         public PetStatus Status { get; private set; }
 
         private Pet() { }
 
-        private Pet (Guid id, Guid? clientId, string name, string species, DateTime? birthDate)
+        private Pet(Guid id, Guid? clientId, string name, string species, DateOnly? birthDate)
         {
             Id = id;
             ClientId = clientId;
@@ -27,7 +27,7 @@ namespace VetCRM.Modules.Pets.Domain
             Status = PetStatus.Active;
         }
 
-        public static Pet Create(Guid? clientId, string name, string species, DateTime? birthDate)
+        public static Pet Create(Guid? clientId, string name, string species, DateOnly? birthDate)
         {
             if (clientId == Guid.Empty) throw new ArgumentException("ClientId is required");
             if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Pet name is required");

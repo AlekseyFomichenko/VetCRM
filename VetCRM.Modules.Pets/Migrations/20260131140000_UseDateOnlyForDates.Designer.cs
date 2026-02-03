@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VetCRM.Modules.Pets.Infrastructure;
@@ -11,9 +12,10 @@ using VetCRM.Modules.Pets.Infrastructure;
 namespace VetCRM.Modules.Pets.Migrations
 {
     [DbContext(typeof(PetsDbContext))]
-    partial class PetsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260131140000_UseDateOnlyForDates")]
+    partial class UseDateOnlyForDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

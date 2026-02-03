@@ -19,11 +19,11 @@ namespace VetCRM.Modules.Reports.Application.Queries
             GetOverdueVaccinationsReportQuery query,
             CancellationToken ct)
         {
-            var today = DateTime.UtcNow.Date;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
             var upToExclusive = today.AddDays(SoonDays + 1);
 
             var upcoming = await _upcomingVaccinationsQuery.GetUpcomingAsync(
-                DateTime.MinValue,
+                DateOnly.MinValue,
                 upToExclusive,
                 ct);
 
@@ -47,7 +47,7 @@ namespace VetCRM.Modules.Reports.Application.Queries
                     }
                 }
 
-                bool isOverdue = v.NextDueDate.Date < today;
+                bool isOverdue = v.NextDueDate < today;
 
                 rows.Add(new OverdueVaccinationReportDto(
                     v.VaccinationId,

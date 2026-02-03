@@ -11,7 +11,7 @@ namespace VetCRM.Modules.MedicalRecords.Domain
         public string TreatmentPlan { get; private set; } = string.Empty;
         public string Prescription { get; private set; } = string.Empty;
         public string? Attachments { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateOnly CreatedAt { get; private set; }
 
         private MedicalRecord() { }
 
@@ -25,7 +25,7 @@ namespace VetCRM.Modules.MedicalRecords.Domain
             string treatmentPlan,
             string prescription,
             string? attachments,
-            DateTime createdAt)
+            DateOnly createdAt)
         {
             Id = id;
             AppointmentId = appointmentId;
@@ -59,7 +59,7 @@ namespace VetCRM.Modules.MedicalRecords.Domain
                 treatmentPlan ?? string.Empty,
                 prescription ?? string.Empty,
                 attachments,
-                DateTime.UtcNow);
+                DateOnly.FromDateTime(DateTime.UtcNow));
         }
 
         public void Update(string complaint, string diagnosis, string treatmentPlan, string prescription, string? attachments)

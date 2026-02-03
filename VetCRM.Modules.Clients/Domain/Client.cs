@@ -9,11 +9,11 @@ namespace VetCRM.Modules.Clients.Domain
         public string? Address { get; private set; }
         public string? Notes { get; private set; }
         public ClientStatus Status { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        public DateOnly CreatedAt { get; private set; }
 
         private Client() { }
 
-        private Client(Guid id, string fullName, string phone, string? email, string? address, string? notes, DateTime createdAt)
+        private Client(Guid id, string fullName, string phone, string? email, string? address, string? notes, DateOnly createdAt)
         {
             Id = id;
             FullName = fullName;
@@ -39,7 +39,7 @@ namespace VetCRM.Modules.Clients.Domain
                 email?.Trim(),
                 address?.Trim(),
                 notes?.Trim(),
-                DateTime.UtcNow);
+                DateOnly.FromDateTime(DateTime.UtcNow));
         }
 
         public void Update(string fullName, string phone, string? email, string? address, string? notes)

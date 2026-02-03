@@ -21,10 +21,10 @@ namespace VetCRM.Modules.Notifications.Tests
                 petId,
                 Guid.NewGuid(),
                 "Rabies",
-                DateTime.UtcNow.AddDays(2));
+                DateOnly.FromDateTime(DateTime.UtcNow).AddDays(2));
 
             var upcomingQueryMock = new Mock<IUpcomingVaccinationsQuery>();
-            upcomingQueryMock.Setup(q => q.GetUpcomingAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<CancellationToken>()))
+            upcomingQueryMock.Setup(q => q.GetUpcomingAsync(It.IsAny<DateOnly>(), It.IsAny<DateOnly>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new[] { upcomingDto });
 
             var petReadServiceMock = new Mock<IPetReadService>();
@@ -66,10 +66,10 @@ namespace VetCRM.Modules.Notifications.Tests
                 petId,
                 Guid.NewGuid(),
                 "Rabies",
-                DateTime.UtcNow.AddDays(2));
+                DateOnly.FromDateTime(DateTime.UtcNow).AddDays(2));
 
             var upcomingQueryMock = new Mock<IUpcomingVaccinationsQuery>();
-            upcomingQueryMock.Setup(q => q.GetUpcomingAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<CancellationToken>()))
+            upcomingQueryMock.Setup(q => q.GetUpcomingAsync(It.IsAny<DateOnly>(), It.IsAny<DateOnly>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new[] { upcomingDto });
 
             var petReadServiceMock = new Mock<IPetReadService>();

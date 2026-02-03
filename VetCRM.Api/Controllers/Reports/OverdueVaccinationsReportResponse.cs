@@ -4,7 +4,7 @@ namespace VetCRM.Api.Controllers.Reports
         Guid VaccinationId,
         Guid PetId,
         string VaccineName,
-        DateTime NextDueDate,
+        DateOnly NextDueDate,
         bool IsOverdue,
         string? ClientFullName,
         string? ClientPhone,

@@ -10,5 +10,5 @@ namespace VetCRM.Api.Controllers.Clients
         string? Address,
         string? Notes,
         ClientStatus Status,
-        DateTime CreatedAt);
+        DateOnly CreatedAt);
 }

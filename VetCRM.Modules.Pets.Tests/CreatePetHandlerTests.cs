@@ -20,7 +20,7 @@ namespace VetCRM.Modules.Pets.Tests
                 ClientId: null,
                 Name: "Rex",
                 Species: "Dog",
-                BirthDate: new DateTime(2020, 5, 1));
+                BirthDate: new DateOnly(2020, 5, 1));
 
             var result = await handler.Handle(command, CancellationToken.None);
 
@@ -42,7 +42,7 @@ namespace VetCRM.Modules.Pets.Tests
                 ClientId: clientId,
                 Name: "Rex",
                 Species: "Dog",
-                BirthDate: new DateTime(2020, 5, 1));
+                BirthDate: new DateOnly(2020, 5, 1));
 
             var result = await handler.Handle(command, CancellationToken.None);
 

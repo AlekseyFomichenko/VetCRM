@@ -40,7 +40,7 @@ public sealed class ClientPetFlowTests : IClassFixture<VetCRMWebApplicationFacto
         var createPetRequest = new CreatePetRequest(
             "Тестовый Питомец",
             "Кот",
-            DateTime.UtcNow.AddYears(-2),
+            DateOnly.FromDateTime(DateTime.UtcNow).AddYears(-2),
             clientId);
 
         using var createPetResponse = await _client.PostAsJsonAsync("/api/pets", createPetRequest);
@@ -75,6 +75,6 @@ public sealed class ClientPetFlowTests : IClassFixture<VetCRMWebApplicationFacto
 
     private sealed record CreateClientResponse(Guid ClientId);
     private sealed record CreatePetResponse(Guid PetId);
-    private sealed record ClientResponse(Guid Id, string FullName, string Phone, string? Email, string? Address, string? Notes, int Status, DateTime CreatedAt);
+    private sealed record ClientResponse(Guid Id, string FullName, string Phone, string? Email, string? Address, string? Notes, int Status, DateOnly CreatedAt);
     private sealed record LoginResponse(string AccessToken, string RefreshToken, DateTime ExpiresAt, Guid UserId, string Email, string Role);
 }

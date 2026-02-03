@@ -2,8 +2,8 @@ namespace VetCRM.Api.Controllers.MedicalRecords
 {
     public sealed record AddVaccinationRequest(
         string VaccineName,
-        DateTime VaccinationDate,
-        DateTime? NextDueDate,
+        DateOnly VaccinationDate,
+        DateOnly? NextDueDate,
         string? Batch,
         string? Manufacturer);
 }

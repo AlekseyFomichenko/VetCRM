@@ -10,5 +10,5 @@ namespace VetCRM.Modules.Clients.Application.Queries
         string? Address,
         string? Notes,
         ClientStatus Status,
-        DateTime CreatedAt);
+        DateOnly CreatedAt);
 }

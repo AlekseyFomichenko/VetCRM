@@ -8,8 +8,8 @@ namespace VetCRM.Modules.MedicalRecords.Infrastructure
         private readonly MedicalRecordsDbContext _db = db;
 
         public async Task<IReadOnlyList<UpcomingVaccinationDto>> GetUpcomingAsync(
-            DateTime fromDateInclusive,
-            DateTime upToDateExclusive,
+            DateOnly fromDateInclusive,
+            DateOnly upToDateExclusive,
             CancellationToken cancellationToken)
         {
             var list = await _db.Vaccinations

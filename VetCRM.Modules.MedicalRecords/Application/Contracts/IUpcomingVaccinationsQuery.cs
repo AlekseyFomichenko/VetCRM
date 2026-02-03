@@ -5,13 +5,13 @@ namespace VetCRM.Modules.MedicalRecords.Application.Contracts
         Guid PetId,
         Guid MedicalRecordId,
         string VaccineName,
-        DateTime NextDueDate);
+        DateOnly NextDueDate);
 
     public interface IUpcomingVaccinationsQuery
     {
         Task<IReadOnlyList<UpcomingVaccinationDto>> GetUpcomingAsync(
-            DateTime fromDateInclusive,
-            DateTime upToDateExclusive,
+            DateOnly fromDateInclusive,
+            DateOnly upToDateExclusive,
             CancellationToken cancellationToken);
     }
 }

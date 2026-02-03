@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +10,5 @@ namespace VetCRM.Modules.Pets.Application.Commands
         Guid? ClientId,
         string Name,
         string Species,
-        DateTime? BirthDate);
+        DateOnly? BirthDate);
 }

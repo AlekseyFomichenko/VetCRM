@@ -4,8 +4,8 @@ namespace VetCRM.Api.Controllers.MedicalRecords
         Guid Id,
         Guid MedicalRecordId,
         string VaccineName,
-        DateTime VaccinationDate,
-        DateTime? NextDueDate,
+        DateOnly VaccinationDate,
+        DateOnly? NextDueDate,
         string? Batch,
         string? Manufacturer);
 }

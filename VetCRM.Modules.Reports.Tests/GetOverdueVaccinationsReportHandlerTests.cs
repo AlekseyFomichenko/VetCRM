@@ -19,12 +19,12 @@ namespace VetCRM.Modules.Reports.Tests
                 petId,
                 Guid.NewGuid(),
                 "Rabies",
-                DateTime.UtcNow.AddDays(-1));
+                DateOnly.FromDateTime(DateTime.UtcNow).AddDays(-1));
 
             var upcomingQueryMock = new Mock<IUpcomingVaccinationsQuery>();
             upcomingQueryMock.Setup(q => q.GetUpcomingAsync(
-                    It.IsAny<DateTime>(),
-                    It.IsAny<DateTime>(),
+                    It.IsAny<DateOnly>(),
+                    It.IsAny<DateOnly>(),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new[] { vaccinationDto });
 
