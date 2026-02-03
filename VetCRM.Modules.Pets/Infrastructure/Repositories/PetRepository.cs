@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +14,7 @@ namespace VetCRM.Modules.Pets.Infrastructure.Repositories
         public async Task AddAsync(Pet pet, CancellationToken cancellationToken)
         {
             await _db.AddAsync(pet, cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);
         }
     }
 }

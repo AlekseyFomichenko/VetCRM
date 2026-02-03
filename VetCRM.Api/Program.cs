@@ -2,6 +2,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using VetCRM.Api.Middleware;
+using VetCRM.Api.Services;
+using VetCRM.Api.Swagger;
 using VetCRM.Modules.Appointments;
 using VetCRM.Modules.Clients;
 using VetCRM.Modules.Identity;
@@ -21,6 +23,7 @@ builder.Services.AddAppointmentsModule(builder.Configuration.GetConnectionString
 builder.Services.AddIdentityModule(builder.Configuration.GetConnectionString("Default") ?? string.Empty);
 builder.Services.AddNotificationsModule(builder.Configuration.GetConnectionString("Default") ?? string.Empty);
 builder.Services.AddReportsModule();
+builder.Services.AddScoped<DevSeedService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -44,6 +47,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    options.OperationFilter<SwaggerExamplesOperationFilter>();
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
@@ -83,3 +87,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

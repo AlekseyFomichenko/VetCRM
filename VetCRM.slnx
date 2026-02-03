@@ -16,4 +16,5 @@
   <Project Path="VetCRM.Modules.Identity.Tests/VetCRM.Modules.Identity.Tests.csproj" />
   <Project Path="VetCRM.Modules.Notifications.Tests/VetCRM.Modules.Notifications.Tests.csproj" />
   <Project Path="VetCRM.SharedKernel/VetCRM.SharedKernel.csproj" />
+  <Project Path="VetCRM.IntegrationTests/VetCRM.IntegrationTests.csproj" />
 </Solution>
