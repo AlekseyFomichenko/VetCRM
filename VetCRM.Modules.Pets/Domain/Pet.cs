@@ -56,5 +56,13 @@ namespace VetCRM.Modules.Pets.Domain
         {
             ClientId = null;
         }
+
+        public void Update(string name, string species, DateOnly? birthDate)
+        {
+            if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("Pet name is required");
+            Name = name.Trim();
+            Species = species ?? string.Empty;
+            BirthDate = birthDate;
+        }
     }
 }
