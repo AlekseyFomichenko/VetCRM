@@ -1,0 +1,14 @@
+.git
+**/.git
+**/bin
+**/obj
+.env
+VetCRM.Modules.Appointments.Tests/
+VetCRM.Modules.Clients.Tests/
+VetCRM.Modules.Identity.Tests/
+VetCRM.Modules.MedicalRecords.Tests/
+VetCRM.Modules.Notifications.Tests/
+VetCRM.Modules.Pets.Tests/
+VetCRM.Modules.Reports.Tests/
+VetCRM.IntegrationTests/
+docs/
