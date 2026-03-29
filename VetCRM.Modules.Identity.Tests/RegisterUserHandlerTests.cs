@@ -20,7 +20,7 @@ namespace VetCRM.Modules.Identity.Tests
             passwordHasherMock.Setup(h => h.Hash("password123")).Returns("hashed");
 
             var handler = new RegisterUserHandler(userRepositoryMock.Object, passwordHasherMock.Object);
-            var command = new RegisterUserCommand("user@example.com", "password123", UserRole.Receptionist);
+            var command = new RegisterUserCommand("user@example.com", "password123", UserRole.Receptionist, "Full Name");
 
             var result = await handler.Handle(command, CancellationToken.None);
 
@@ -39,7 +39,7 @@ namespace VetCRM.Modules.Identity.Tests
             var passwordHasherMock = new Mock<IPasswordHasher>();
 
             var handler = new RegisterUserHandler(userRepositoryMock.Object, passwordHasherMock.Object);
-            var command = new RegisterUserCommand("user@example.com", "password123", UserRole.Veterinarian);
+            var command = new RegisterUserCommand("user@example.com", "password123", UserRole.Veterinarian, null);
 
             var ex = await Assert.ThrowsAsync<DuplicateEmailException>(() =>
                 handler.Handle(command, CancellationToken.None));
@@ -55,7 +55,7 @@ namespace VetCRM.Modules.Identity.Tests
             var passwordHasherMock = new Mock<IPasswordHasher>();
 
             var handler = new RegisterUserHandler(userRepositoryMock.Object, passwordHasherMock.Object);
-            var command = new RegisterUserCommand("admin@example.com", "password123", UserRole.Admin);
+            var command = new RegisterUserCommand("admin@example.com", "password123", UserRole.Admin, null);
 
             await Assert.ThrowsAsync<ArgumentException>(() =>
                 handler.Handle(command, CancellationToken.None));

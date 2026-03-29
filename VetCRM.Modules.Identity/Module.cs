@@ -37,6 +37,7 @@ namespace VetCRM.Modules.Identity
 
             services.AddScoped<GetUserByIdHandler>();
             services.AddScoped<GetUsersHandler>();
+            services.AddScoped<GetVeterinariansForSchedulingHandler>();
 
             return services;
         }

@@ -21,7 +21,7 @@ namespace VetCRM.Modules.Identity.Application.Commands
                 throw new DuplicateEmailException(command.Email);
 
             string hash = _passwordHasher.Hash(command.Password);
-            User user = User.Create(command.Email, hash, command.Role, null);
+            User user = User.Create(command.Email, hash, command.Role, command.FullName);
             await _userRepository.AddAsync(user, ct);
             return new RegisterUserResult(user.Id);
         }

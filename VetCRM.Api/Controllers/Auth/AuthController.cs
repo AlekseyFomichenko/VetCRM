@@ -21,7 +21,11 @@ namespace VetCRM.Api.Controllers.Auth
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken ct)
         {
-            var command = new RegisterUserCommand(request.Email, request.Password, request.Role);
+            var command = new RegisterUserCommand(
+                request.Email,
+                request.Password,
+                request.Role,
+                request.FullName);
             var result = await _registerHandler.Handle(command, ct);
             return Created($"/api/users/{result.UserId}", new { userId = result.UserId });
         }

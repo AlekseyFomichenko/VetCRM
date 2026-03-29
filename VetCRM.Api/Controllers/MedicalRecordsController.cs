@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using VetCRM.Api.Controllers.MedicalRecords;
 using VetCRM.Modules.MedicalRecords.Application.Commands;
 using VetCRM.Modules.MedicalRecords.Application.Queries;
@@ -11,11 +12,13 @@ namespace VetCRM.Api.Controllers
     [Route("api/medical-records")]
     [Authorize(Roles = "Admin,Receptionist,Veterinarian")]
     public sealed class MedicalRecordsController(
+        CreateMedicalRecordHandler createHandler,
         GetMedicalRecordByIdHandler getByIdHandler,
         GetMedicalRecordsByPetIdHandler getByPetIdHandler,
         UpdateMedicalRecordHandler updateHandler,
         AddVaccinationHandler addVaccinationHandler) : Controller
     {
+        private readonly CreateMedicalRecordHandler _createHandler = createHandler;
         private readonly GetMedicalRecordByIdHandler _getByIdHandler = getByIdHandler;
         private readonly GetMedicalRecordsByPetIdHandler _getByPetIdHandler = getByPetIdHandler;
         private readonly UpdateMedicalRecordHandler _updateHandler = updateHandler;
@@ -28,6 +31,27 @@ namespace VetCRM.Api.Controllers
             var results = await _getByPetIdHandler.Handle(query, ct);
             var response = results.Select(Map).ToList();
             return Ok(response);
+        }
+
+        [HttpPost("~/api/pets/{petId:guid}/medical-records")]
+        [Authorize(Roles = "Admin,Veterinarian")]
+        public async Task<IActionResult> CreateForPet(Guid petId, [FromBody] CreateMedicalRecordRequest request, CancellationToken ct)
+        {
+            Guid? veterinarianUserId = null;
+            var userIdRaw = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
+            if (Guid.TryParse(userIdRaw, out var parsedUserId))
+                veterinarianUserId = parsedUserId;
+
+            var command = new CreateMedicalRecordCommand(
+                petId,
+                veterinarianUserId,
+                request.Complaint,
+                request.Diagnosis,
+                request.TreatmentPlan,
+                request.Prescription,
+                request.Attachments);
+            var medicalRecordId = await _createHandler.Handle(command, ct);
+            return Created($"/api/medical-records/{medicalRecordId}", new { medicalRecordId });
         }
 
         [HttpGet("{id:guid}")]

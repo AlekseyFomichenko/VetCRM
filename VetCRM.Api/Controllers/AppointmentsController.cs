@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using VetCRM.Api.Controllers.Appointments;
 using VetCRM.Modules.Appointments.Application.Commands;
 using VetCRM.Modules.Appointments.Application.Queries;
+using VetCRM.Modules.Identity.Application.Queries;
 
 namespace VetCRM.Api.Controllers
 {
@@ -14,13 +15,15 @@ namespace VetCRM.Api.Controllers
         RescheduleAppointmentHandler rescheduleHandler,
         CancelAppointmentHandler cancelHandler,
         CompleteAppointmentHandler completeHandler,
-        GetAppointmentsByDateHandler getByDateHandler) : Controller
+        GetAppointmentsByDateHandler getByDateHandler,
+        GetVeterinariansForSchedulingHandler getVeterinariansHandler) : Controller
     {
         private readonly CreateAppointmentHandler _createHandler = createHandler;
         private readonly RescheduleAppointmentHandler _rescheduleHandler = rescheduleHandler;
         private readonly CancelAppointmentHandler _cancelHandler = cancelHandler;
         private readonly CompleteAppointmentHandler _completeHandler = completeHandler;
         private readonly GetAppointmentsByDateHandler _getByDateHandler = getByDateHandler;
+        private readonly GetVeterinariansForSchedulingHandler _getVeterinariansHandler = getVeterinariansHandler;
 
         [HttpPost]
         [Authorize(Roles = "Admin,Receptionist")]
@@ -36,6 +39,17 @@ namespace VetCRM.Api.Controllers
 
             var result = await _createHandler.Handle(command, ct);
             return CreatedAtAction(nameof(GetByDate), new { date = request.StartsAt.Date.ToString("yyyy-MM-dd") }, result);
+        }
+
+        [HttpGet("veterinarians")]
+        [Authorize(Roles = "Admin,Receptionist")]
+        public async Task<IActionResult> ListVeterinarians(CancellationToken ct)
+        {
+            var items = await _getVeterinariansHandler.Handle(ct);
+            var response = items
+                .Select(i => new VeterinarianOptionResponse(i.Id, i.Email, i.FullName))
+                .ToList();
+            return Ok(response);
         }
 
         [HttpGet]

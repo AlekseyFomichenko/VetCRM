@@ -9,13 +9,15 @@
 **Базовый маршрут:** `api/auth`  
 **Авторизация:** все эндпоинты публичные (без JWT).
 
-| Метод | Маршрут | Назначение |
-|-------|---------|------------|
-| POST | register | Регистрация пользователя (роли Veterinarian или Receptionist) |
-| POST | login | Вход по email и паролю, выдача access- и refresh-токенов |
-| POST | refresh | Обновление access-токена по refresh-токену |
-| POST | forgot-password | Запрос сброса пароля (отправка токена на email) |
-| POST | reset-password | Сброс пароля по токену и новому паролю |
+
+| Метод | Маршрут         | Назначение                                                    |
+| ----- | --------------- | ------------------------------------------------------------- |
+| POST  | register        | Регистрация пользователя (роли Veterinarian или Receptionist) |
+| POST  | login           | Вход по email и паролю, выдача access- и refresh-токенов      |
+| POST  | refresh         | Обновление access-токена по refresh-токену                    |
+| POST  | forgot-password | Запрос сброса пароля (отправка токена на email)               |
+| POST  | reset-password  | Сброс пароля по токену и новому паролю                        |
+
 
 ### POST /api/auth/register
 
@@ -23,11 +25,13 @@
 
 **Тело запроса (RegisterRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| email | string | Email (уникальный) |
-| password | string | Пароль |
-| role | UserRole | 1 = Veterinarian, 2 = Receptionist |
+
+| Поле     | Тип      | Описание                           |
+| -------- | -------- | ---------------------------------- |
+| email    | string   | Email (уникальный)                 |
+| password | string   | Пароль                             |
+| role     | UserRole | 1 = Veterinarian, 2 = Receptionist |
+
 
 **Ответ:** 201 Created, тело: `{ "userId": "guid" }`.
 
@@ -39,21 +43,25 @@
 
 **Тело запроса (LoginRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| email | string | Email |
-| password | string | Пароль |
+
+| Поле     | Тип    | Описание |
+| -------- | ------ | -------- |
+| email    | string | Email    |
+| password | string | Пароль   |
+
 
 **Ответ:** 200 OK, тело (LoginResponse):
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| accessToken | string | JWT для заголовка Authorization |
-| refreshToken | string | Токен для обновления access |
-| expiresAt | DateTime | Срок действия refresh-токена |
-| userId | Guid | Id пользователя |
-| email | string | Email |
-| role | string | Роль (Admin, Veterinarian, Receptionist) |
+
+| Поле         | Тип      | Описание                                 |
+| ------------ | -------- | ---------------------------------------- |
+| accessToken  | string   | JWT для заголовка Authorization          |
+| refreshToken | string   | Токен для обновления access              |
+| expiresAt    | DateTime | Срок действия refresh-токена             |
+| userId       | Guid     | Id пользователя                          |
+| email        | string   | Email                                    |
+| role         | string   | Роль (Admin, Veterinarian, Receptionist) |
+
 
 ---
 
@@ -78,10 +86,12 @@
 
 **Тело запроса (ResetPasswordRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| token | string | Токен из письма/процесса forgot-password |
-| newPassword | string | Новый пароль |
+
+| Поле        | Тип    | Описание                                 |
+| ----------- | ------ | ---------------------------------------- |
+| token       | string | Токен из письма/процесса forgot-password |
+| newPassword | string | Новый пароль                             |
+
 
 **Ответ:** 204 No Content.
 
@@ -92,25 +102,29 @@
 **Базовый маршрут:** `api/clients`  
 **Авторизация:** JWT, роли Admin, Receptionist, Veterinarian (уточнения по эндпоинтам ниже).
 
-| Метод | Маршрут | Назначение | Роли |
-|-------|---------|------------|------|
-| POST | / | Создание клиента | Admin, Receptionist |
-| GET | / | Список клиентов с поиском и пагинацией | все три |
-| GET | /{id} | Клиент по id | все три |
-| PUT | /{id} | Обновление клиента | все три |
-| POST | /{id}/archive | Архивация клиента | Admin, Receptionist |
+
+| Метод | Маршрут       | Назначение                             | Роли                |
+| ----- | ------------- | -------------------------------------- | ------------------- |
+| POST  | /             | Создание клиента                       | Admin, Receptionist |
+| GET   | /             | Список клиентов с поиском и пагинацией | все три             |
+| GET   | /{id}         | Клиент по id                           | все три             |
+| PUT   | /{id}         | Обновление клиента                     | все три             |
+| POST  | /{id}/archive | Архивация клиента                      | Admin, Receptionist |
+
 
 ### POST /api/clients
 
 **Тело запроса (CreateClientRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| fullName | string | ФИО |
-| phone | string | Телефон (уникальный) |
-| email | string? | Email |
-| address | string? | Адрес |
-| notes | string? | Заметки |
+
+| Поле     | Тип     | Описание             |
+| -------- | ------- | -------------------- |
+| fullName | string  | ФИО                  |
+| phone    | string  | Телефон (уникальный) |
+| email    | string? | Email                |
+| address  | string? | Адрес                |
+| notes    | string? | Заметки              |
+
 
 **Ответ:** 201 Created, заголовок Location, тело: `{ "clientId": "guid" }`.
 
@@ -122,12 +136,14 @@
 
 **Ответ:** 200 OK, тело (GetClientsResponse):
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| items | ClientResponse[] | Элементы страницы |
-| totalCount | int | Общее количество |
-| page | int | Номер страницы |
-| pageSize | int | Размер страницы |
+
+| Поле       | Тип              | Описание          |
+| ---------- | ---------------- | ----------------- |
+| items      | ClientResponse[] | Элементы страницы |
+| totalCount | int              | Общее количество  |
+| page       | int              | Номер страницы    |
+| pageSize   | int              | Размер страницы   |
+
 
 **ClientResponse:** id, fullName, phone, email, address, notes, status (Active/Archived), createdAt.
 
@@ -157,21 +173,25 @@
 **Базовый маршрут:** `api/pets`  
 **Авторизация:** JWT, роли Admin, Receptionist, Veterinarian.
 
-| Метод | Маршрут | Назначение | Роли |
-|-------|---------|------------|------|
-| POST | / | Создание питомца | Admin, Receptionist |
-| GET | /{id} | Питомец по id (заглушка) | все три |
+
+| Метод | Маршрут | Назначение               | Роли                |
+| ----- | ------- | ------------------------ | ------------------- |
+| POST  | /       | Создание питомца         | Admin, Receptionist |
+| GET   | /{id}   | Питомец по id (заглушка) | все три             |
+
 
 ### POST /api/pets
 
 **Тело запроса (CreatePetRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| name | string | Кличка |
-| species | string | Вид (например, Кот, Собака) |
-| birthDate | DateTime? | Дата рождения |
-| clientId | Guid? | Id владельца (клиента) |
+
+| Поле      | Тип       | Описание                    |
+| --------- | --------- | --------------------------- |
+| name      | string    | Кличка                      |
+| species   | string    | Вид (например, Кот, Собака) |
+| birthDate | DateTime? | Дата рождения               |
+| clientId  | Guid?     | Id владельца (клиента)      |
+
 
 **Ответ:** 201 Created, заголовок Location, тело: `{ "petId": "guid" }`.
 
@@ -188,26 +208,30 @@
 **Базовый маршрут:** `api/appointments`  
 **Авторизация:** JWT, роли Admin, Receptionist, Veterinarian.
 
-| Метод | Маршрут | Назначение | Роли |
-|-------|---------|------------|------|
-| POST | / | Создание приёма | Admin, Receptionist |
-| GET | / | Список приёмов по дате | все три |
-| PUT | /{id}/reschedule | Перенос приёма | Admin, Receptionist |
-| PUT | /{id}/cancel | Отмена приёма | все три |
-| PUT | /{id}/complete | Завершение приёма и создание медзаписи | Admin, Veterinarian |
+
+| Метод | Маршрут          | Назначение                             | Роли                |
+| ----- | ---------------- | -------------------------------------- | ------------------- |
+| POST  | /                | Создание приёма                        | Admin, Receptionist |
+| GET   | /                | Список приёмов по дате                 | все три             |
+| PUT   | /{id}/reschedule | Перенос приёма                         | Admin, Receptionist |
+| PUT   | /{id}/cancel     | Отмена приёма                          | все три             |
+| PUT   | /{id}/complete   | Завершение приёма и создание медзаписи | Admin, Veterinarian |
+
 
 ### POST /api/appointments
 
 **Тело запроса (CreateAppointmentRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| petId | Guid | Id питомца |
-| clientId | Guid | Id клиента |
-| veterinarianUserId | Guid? | Id ветврача |
-| startsAt | DateTime | Начало приёма |
-| endsAt | DateTime | Окончание приёма |
-| reason | string? | Причина/повод |
+
+| Поле               | Тип      | Описание         |
+| ------------------ | -------- | ---------------- |
+| petId              | Guid     | Id питомца       |
+| clientId           | Guid     | Id клиента       |
+| veterinarianUserId | Guid?    | Id ветврача      |
+| startsAt           | DateTime | Начало приёма    |
+| endsAt             | DateTime | Окончание приёма |
+| reason             | string?  | Причина/повод    |
+
 
 **Ответ:** 201 Created, тело: `{ "appointmentId": "guid" }`. При пересечении по ветврачу — 409.
 
@@ -219,18 +243,20 @@
 
 **Ответ:** 200 OK, тело — массив AppointmentResponse:
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| id | Guid | Id приёма |
-| petId | Guid | Id питомца |
-| clientId | Guid | Id клиента |
-| veterinarianUserId | Guid? | Id ветврача |
-| startsAt | DateTime | Начало |
-| endsAt | DateTime | Окончание |
-| status | AppointmentStatus | Scheduled, Completed, Cancelled |
-| reason | string? | Причина |
-| createdByUserId | Guid? | Кто создал |
-| createdAt | DateTime | Дата создания |
+
+| Поле               | Тип               | Описание                        |
+| ------------------ | ----------------- | ------------------------------- |
+| id                 | Guid              | Id приёма                       |
+| petId              | Guid              | Id питомца                      |
+| clientId           | Guid              | Id клиента                      |
+| veterinarianUserId | Guid?             | Id ветврача                     |
+| startsAt           | DateTime          | Начало                          |
+| endsAt             | DateTime          | Окончание                       |
+| status             | AppointmentStatus | Scheduled, Completed, Cancelled |
+| reason             | string?           | Причина                         |
+| createdByUserId    | Guid?             | Кто создал                      |
+| createdAt          | DateTime          | Дата создания                   |
+
 
 ---
 
@@ -253,13 +279,15 @@
 
 **Тело запроса (CompleteAppointmentRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| complaint | string | Жалоба |
-| diagnosis | string | Диагноз |
-| treatmentPlan | string | План лечения |
-| prescription | string | Назначения |
-| attachments | string? | Вложения (текст/ссылка) |
+
+| Поле          | Тип     | Описание                |
+| ------------- | ------- | ----------------------- |
+| complaint     | string  | Жалоба                  |
+| diagnosis     | string  | Диагноз                 |
+| treatmentPlan | string  | План лечения            |
+| prescription  | string  | Назначения              |
+| attachments   | string? | Вложения (текст/ссылка) |
+
 
 **Ответ:** 200 OK.
 
@@ -270,12 +298,14 @@
 **Базовый маршрут:** `api/medical-records` и `api/pets/{petId}/medical-records`  
 **Авторизация:** JWT, роли Admin, Receptionist, Veterinarian.
 
-| Метод | Маршрут | Назначение | Роли |
-|-------|---------|------------|------|
-| GET | /api/pets/{petId}/medical-records | Список медзаписей по питомцу | все три |
-| GET | /{id} | Медзапись по id | все три |
-| PUT | /{id} | Обновление медзаписи | Admin, Veterinarian |
-| POST | /{id}/vaccinations | Добавление вакцинации к записи | Admin, Veterinarian |
+
+| Метод | Маршрут                           | Назначение                     | Роли                |
+| ----- | --------------------------------- | ------------------------------ | ------------------- |
+| GET   | /api/pets/{petId}/medical-records | Список медзаписей по питомцу   | все три             |
+| GET   | /{id}                             | Медзапись по id                | все три             |
+| PUT   | /{id}                             | Обновление медзаписи           | Admin, Veterinarian |
+| POST  | /{id}/vaccinations                | Добавление вакцинации к записи | Admin, Veterinarian |
+
 
 ### GET /api/pets/{petId}/medical-records
 
@@ -304,13 +334,15 @@
 
 **Тело запроса (AddVaccinationRequest):**
 
-| Поле | Тип | Описание |
-|------|-----|----------|
-| vaccineName | string | Название вакцины |
-| vaccinationDate | DateTime | Дата прививки |
-| nextDueDate | DateTime? | Следующая дата (ревакцинация) |
-| batch | string? | Серия |
-| manufacturer | string? | Производитель |
+
+| Поле            | Тип       | Описание                      |
+| --------------- | --------- | ----------------------------- |
+| vaccineName     | string    | Название вакцины              |
+| vaccinationDate | DateTime  | Дата прививки                 |
+| nextDueDate     | DateTime? | Следующая дата (ревакцинация) |
+| batch           | string?   | Серия                         |
+| manufacturer    | string?   | Производитель                 |
+
 
 **Ответ:** 200 OK.
 
@@ -321,10 +353,12 @@
 **Базовый маршрут:** `api/notifications`  
 **Авторизация:** JWT, только Admin.
 
-| Метод | Маршрут | Назначение |
-|-------|---------|------------|
-| POST | send | Запуск отправки напоминаний о вакцинациях |
-| GET | log | Журнал напоминаний с фильтрами |
+
+| Метод | Маршрут | Назначение                                |
+| ----- | ------- | ----------------------------------------- |
+| POST  | send    | Запуск отправки напоминаний о вакцинациях |
+| GET   | log     | Журнал напоминаний с фильтрами            |
+
 
 ### POST /api/notifications/send
 
@@ -345,10 +379,12 @@
 **Базовый маршрут:** `api/reports`  
 **Авторизация:** JWT, только Admin.
 
-| Метод | Маршрут | Назначение |
-|-------|---------|------------|
-| GET | appointments | Приёмы за период |
-| GET | overdue-vaccinations | Просроченные/скоро просроченные вакцинации |
+
+| Метод | Маршрут              | Назначение                                 |
+| ----- | -------------------- | ------------------------------------------ |
+| GET   | appointments         | Приёмы за период                           |
+| GET   | overdue-vaccinations | Просроченные/скоро просроченные вакцинации |
+
 
 ### GET /api/reports/appointments
 
@@ -371,13 +407,15 @@
 **Базовый маршрут:** `api/users`  
 **Авторизация:** JWT, только Admin.
 
-| Метод | Маршрут | Назначение |
-|-------|---------|------------|
-| POST | / | Создание пользователя (в т.ч. Admin) |
-| GET | / | Список пользователей с поиском и фильтрами |
-| GET | /{id} | Пользователь по id |
-| PUT | /{id} | Обновление (имя, роль) |
-| POST | /{id}/disable | Отключение учётной записи |
+
+| Метод | Маршрут       | Назначение                                 |
+| ----- | ------------- | ------------------------------------------ |
+| POST  | /             | Создание пользователя (в т.ч. Admin)       |
+| GET   | /             | Список пользователей с поиском и фильтрами |
+| GET   | /{id}         | Пользователь по id                         |
+| PUT   | /{id}         | Обновление (имя, роль)                     |
+| POST  | /{id}/disable | Отключение учётной записи                  |
+
 
 ### POST /api/users
 
@@ -417,9 +455,11 @@
 **Базовый маршрут:** `api/dev`  
 **Авторизация:** нет; эндпоинт доступен только в окружении Development.
 
-| Метод | Маршрут | Назначение |
-|-------|---------|------------|
-| POST | seed | Заполнение БД тестовыми данными (Admin, ветврач, клиенты, питомцы, приёмы, медзаписи) |
+
+| Метод | Маршрут | Назначение                                                                            |
+| ----- | ------- | ------------------------------------------------------------------------------------- |
+| POST  | seed    | Заполнение БД тестовыми данными (Admin, ветврач, клиенты, питомцы, приёмы, медзаписи) |
+
 
 ### POST /api/dev/seed
 
@@ -432,3 +472,4 @@
 - Заголовок **Authorization:** `Bearer <accessToken>` обязателен для всех защищённых эндпоинтов (кроме Auth и Dev/seed).
 - Ошибки возвращаются в виде JSON с полями: type, title, status, detail, traceId.
 - Даты/время в запросах и ответах — в формате ISO 8601.
+

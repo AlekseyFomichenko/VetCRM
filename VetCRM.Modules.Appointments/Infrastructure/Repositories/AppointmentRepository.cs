@@ -21,11 +21,15 @@ namespace VetCRM.Modules.Appointments.Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Appointment>> GetByDateAndVetAsync(DateOnly date, Guid? vetId, CancellationToken cancellationToken)
         {
-            DateTime startOfDay = date.ToDateTime(TimeOnly.MinValue);
-            DateTime endOfDay = date.ToDateTime(TimeOnly.MaxValue);
+            DateTime startInclusiveUtc = DateTime.SpecifyKind(
+                date.ToDateTime(TimeOnly.MinValue),
+                DateTimeKind.Utc);
+            DateTime endExclusiveUtc = DateTime.SpecifyKind(
+                date.AddDays(1).ToDateTime(TimeOnly.MinValue),
+                DateTimeKind.Utc);
 
             IQueryable<Appointment> query = _db.Appointments.AsNoTracking()
-                .Where(a => a.StartsAt >= startOfDay && a.StartsAt <= endOfDay);
+                .Where(a => a.StartsAt >= startInclusiveUtc && a.StartsAt < endExclusiveUtc);
 
             if (vetId.HasValue)
                 query = query.Where(a => a.VeterinarianUserId == vetId.Value);

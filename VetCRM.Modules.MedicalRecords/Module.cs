@@ -21,6 +21,7 @@ namespace VetCRM.Modules.MedicalRecords
             services.AddScoped<IVaccinationRepository, VaccinationRepository>();
             services.AddScoped<IUpcomingVaccinationsQuery, UpcomingVaccinationsQuery>();
             services.AddScoped<ICreateMedicalRecordFromAppointment, CreateMedicalRecordFromAppointmentHandler>();
+            services.AddScoped<CreateMedicalRecordHandler>();
             services.AddScoped<UpdateMedicalRecordHandler>();
             services.AddScoped<AddVaccinationHandler>();
             services.AddScoped<GetMedicalRecordByIdHandler>();
