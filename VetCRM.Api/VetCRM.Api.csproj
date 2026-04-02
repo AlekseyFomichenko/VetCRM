@@ -7,7 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VetCRM.Modules.Appointments\VetCRM.Modules.Appointments.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Clients\VetCRM.Modules.Clients.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Identity\VetCRM.Modules.Identity.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Notifications\VetCRM.Modules.Notifications.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.MedicalRecords\VetCRM.Modules.MedicalRecords.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Pets\VetCRM.Modules.Pets.csproj" />
+    <ProjectReference Include="..\VetCRM.Modules.Reports\VetCRM.Modules.Reports.csproj" />
+    <ProjectReference Include="..\VetCRM.SharedKernel\VetCRM.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

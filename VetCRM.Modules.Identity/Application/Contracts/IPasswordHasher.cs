@@ -1,0 +1,8 @@
+namespace VetCRM.Modules.Identity.Application.Contracts
+{
+    public interface IPasswordHasher
+    {
+        string Hash(string password);
+        bool Verify(string password, string hash);
+    }
+}

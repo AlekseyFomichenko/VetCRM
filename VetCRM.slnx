@@ -6,6 +6,15 @@
   <Project Path="VetCRM.Modules.Identity/VetCRM.Modules.Identity.csproj" />
   <Project Path="VetCRM.Modules.MedicalRecords/VetCRM.Modules.MedicalRecords.csproj" />
   <Project Path="VetCRM.Modules.Notifications/VetCRM.Modules.Notifications.csproj" />
+  <Project Path="VetCRM.Modules.Reports/VetCRM.Modules.Reports.csproj" />
+  <Project Path="VetCRM.Modules.Reports.Tests/VetCRM.Modules.Reports.Tests.csproj" />
   <Project Path="VetCRM.Modules.Pets/VetCRM.Modules.Pets.csproj" />
+  <Project Path="VetCRM.Modules.Pets.Tests/VetCRM.Modules.Pets.Tests.csproj" />
+  <Project Path="VetCRM.Modules.Clients.Tests/VetCRM.Modules.Clients.Tests.csproj" />
+  <Project Path="VetCRM.Modules.Appointments.Tests/VetCRM.Modules.Appointments.Tests.csproj" />
+  <Project Path="VetCRM.Modules.MedicalRecords.Tests/VetCRM.Modules.MedicalRecords.Tests.csproj" />
+  <Project Path="VetCRM.Modules.Identity.Tests/VetCRM.Modules.Identity.Tests.csproj" />
+  <Project Path="VetCRM.Modules.Notifications.Tests/VetCRM.Modules.Notifications.Tests.csproj" />
   <Project Path="VetCRM.SharedKernel/VetCRM.SharedKernel.csproj" />
+  <Project Path="VetCRM.IntegrationTests/VetCRM.IntegrationTests.csproj" />
 </Solution>
