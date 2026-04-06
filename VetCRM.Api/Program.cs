@@ -26,6 +26,7 @@ builder.Services.AddIdentityModule(builder.Configuration.GetConnectionString("De
 builder.Services.AddNotificationsModule(builder.Configuration.GetConnectionString("Default") ?? string.Empty);
 builder.Services.AddReportsModule();
 builder.Services.AddScoped<DevSeedService>();
+builder.Services.AddScoped<SqlScriptsInitializer>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -85,6 +86,12 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var sqlInitializer = scope.ServiceProvider.GetRequiredService<SqlScriptsInitializer>();
+    await sqlInitializer.RunAsync(CancellationToken.None);
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
