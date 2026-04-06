@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS "MedicalRecords" (
     "TreatmentPlan" character varying(2000) NOT NULL,
     "Prescription" character varying(2000) NOT NULL,
     "Attachments" character varying(4000) NULL,
-    "CreatedAt" timestamp with time zone NOT NULL,
+    "CreatedAt" date NOT NULL,
     CONSTRAINT "PK_MedicalRecords" PRIMARY KEY ("Id")
 );
 
@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS "Vaccinations" (
     "Id" uuid NOT NULL,
     "MedicalRecordId" uuid NOT NULL,
     "VaccineName" character varying(200) NOT NULL,
-    "VaccinationDate" timestamp with time zone NOT NULL,
-    "NextDueDate" timestamp with time zone NULL,
+    "VaccinationDate" date NOT NULL,
+    "NextDueDate" date NULL,
     "Batch" character varying(100) NULL,
     "Manufacturer" character varying(200) NULL,
     CONSTRAINT "PK_Vaccinations" PRIMARY KEY ("Id")
