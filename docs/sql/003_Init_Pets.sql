@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS "pets" (
     "ClientId" uuid NULL,
     "Name" character varying(100) NOT NULL,
     "Species" character varying(50) NOT NULL,
-    "BirthDate" timestamp with time zone NULL,
+    "BirthDate" date NULL,
     "Status" integer NOT NULL,
     CONSTRAINT "PK_pets" PRIMARY KEY ("Id")
 );

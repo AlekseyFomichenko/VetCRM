@@ -28,6 +28,7 @@ public sealed class SqlScriptsInitializer(
             new ScriptDescriptor("005_Init_MedicalRecords.sql", TableExistsAsync("MedicalRecords", ct)),
             new ScriptDescriptor("006_Init_Identity.sql", TableExistsAsync("Users", ct)),
             new ScriptDescriptor("007_Init_Notifications.sql", TableExistsAsync("ReminderLogs", ct)),
+            new ScriptDescriptor("009_Align_DateOnly_Columns.sql", DateOnlyColumnsAlignedAsync(ct)),
         };
 
         foreach (var script in scripts)
@@ -117,6 +118,75 @@ public sealed class SqlScriptsInitializer(
 
         object? result = await command.ExecuteScalarAsync(ct);
         return result is bool exists && exists;
+    }
+
+    private async Task<bool> DateOnlyColumnsAlignedAsync(CancellationToken ct)
+    {
+        if (!await TableExistsAsync("Clients", ct))
+            return true;
+
+        if (!await ColumnHasDateTypeAsync("Clients", "CreatedAt", ct))
+            return false;
+
+        if (await TableExistsAsync("pets", ct) && await ColumnExistsAsync("pets", "BirthDate", ct) &&
+            !await ColumnHasDateTypeAsync("pets", "BirthDate", ct))
+            return false;
+
+        if (await TableExistsAsync("MedicalRecords", ct) && await ColumnExistsAsync("MedicalRecords", "CreatedAt", ct) &&
+            !await ColumnHasDateTypeAsync("MedicalRecords", "CreatedAt", ct))
+            return false;
+
+        if (await TableExistsAsync("Vaccinations", ct))
+        {
+            if (await ColumnExistsAsync("Vaccinations", "VaccinationDate", ct) &&
+                !await ColumnHasDateTypeAsync("Vaccinations", "VaccinationDate", ct))
+                return false;
+
+            if (await ColumnExistsAsync("Vaccinations", "NextDueDate", ct) &&
+                await GetColumnDataTypeAsync("Vaccinations", "NextDueDate", ct) == "timestamp with time zone")
+                return false;
+        }
+
+        return true;
+    }
+
+    private async Task<bool> ColumnHasDateTypeAsync(string tableName, string columnName, CancellationToken ct)
+    {
+        return await GetColumnDataTypeAsync(tableName, columnName, ct) == "date";
+    }
+
+    private async Task<string?> GetColumnDataTypeAsync(string tableName, string columnName, CancellationToken ct)
+    {
+        if (!await ColumnExistsAsync(tableName, columnName, ct))
+            return null;
+
+        const string sql = """
+            SELECT data_type
+            FROM information_schema.columns
+            WHERE table_schema = 'public'
+              AND table_name = @tableName
+              AND column_name = @columnName
+            """;
+
+        var connection = _dbContext.Database.GetDbConnection();
+        if (connection.State != System.Data.ConnectionState.Open)
+            await connection.OpenAsync(ct);
+
+        await using var command = connection.CreateCommand();
+        command.CommandText = sql;
+
+        var tableParam = command.CreateParameter();
+        tableParam.ParameterName = "@tableName";
+        tableParam.Value = tableName;
+        command.Parameters.Add(tableParam);
+
+        var columnParam = command.CreateParameter();
+        columnParam.ParameterName = "@columnName";
+        columnParam.Value = columnName;
+        command.Parameters.Add(columnParam);
+
+        object? result = await command.ExecuteScalarAsync(ct);
+        return result as string;
     }
 
     private async Task<bool> IndexExistsAsync(string indexName, CancellationToken ct)

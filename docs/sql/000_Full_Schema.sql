@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS "Clients" (
     "Address" character varying(500) NULL,
     "Notes" character varying(2000) NULL,
     "Status" integer NOT NULL,
-    "CreatedAt" timestamp with time zone NOT NULL,
+    "CreatedAt" date NOT NULL,
     CONSTRAINT "PK_Clients" PRIMARY KEY ("Id")
 );
 
@@ -28,7 +28,7 @@ BEGIN
             ADD COLUMN "Address" character varying(500) NULL,
             ADD COLUMN "Notes" character varying(2000) NULL,
             ADD COLUMN "Status" integer NOT NULL DEFAULT 1,
-            ADD COLUMN "CreatedAt" timestamp with time zone NOT NULL DEFAULT '0001-01-01 00:00:00+00'::timestamp with time zone;
+            ADD COLUMN "CreatedAt" date NOT NULL DEFAULT DATE '0001-01-01';
     END IF;
 END $$;
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS "pets" (
     "ClientId" uuid NULL,
     "Name" character varying(100) NOT NULL,
     "Species" character varying(50) NOT NULL,
-    "BirthDate" timestamp with time zone NULL,
+    "BirthDate" date NULL,
     "Status" integer NOT NULL,
     CONSTRAINT "PK_pets" PRIMARY KEY ("Id")
 );
